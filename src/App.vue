@@ -1,51 +1,39 @@
-<!-- TODO: Move to Home.vue-->
-<template class="">
-  <div class="flex flex-col min-h-screen w-full">
-
-    <!-- TODO: full width -->
-    <header class="flex items-center justify-between p-4 shadow-md bg-white dark:bg-gray-800 w-full" >
-      <div class="flex items-center gap-4">
-        <img src="/src/assets/logo.png" alt="Logo" height="40px" />
-        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">GrammarCheck</h1>
+<template>
+  <div class="flex flex-col h-screen w-[92vw]">
+    <header class="h-[10vh] flex items-center justify-between">
+      <div class="flex items-center justify-center space-x-2">
+        <img src="/src/assets/logo.png" alt="Logo" class="w-[40px] h-[40px] object-contain" />
+        <h1 class="text-[40px]">GrammarCheck</h1>
       </div>
-
-      <div class="flex items-center gap-4">
+      <div class="flex items-center space-x-4">
         <LanguageSelector />
-        <!-- TODO: implement -->
-        <button class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white">
-          🌙/☀️
-        </button>
+        <button class="text-xl">🌙/☀️</button>
       </div>
     </header>
 
-    <main class="flex-1 flex flex-col w-full justify-center items-center p-6">
-      <div class="flex w-full max-w-7xl gap-8 flex-1">
-        <div class="flex flex-col w-1/2">
+    <main class="h-[70vh] flex items-center justify-center px-1">
+      <div class="flex w-full max-w-6xl h-full">
+        <div class="flex flex-col w-1/2 h-full">
           <TextInput class="flex-1" />
         </div>
-
         <div class="flex flex-col w-1/2">
           <ResultDisplay class="flex-1" />
         </div>
       </div>
     </main>
 
-     <!-- TODO: styles -->
-    <div class="mt-6">
+    <div class="h-[20vh] flex flex-col items-center justify-start mt-[10px]">
       <SubmitButton />
-    </div>
-
-    <div class="mt-6 w-full max-w-7xl p-4 bg-gray-100 dark:bg-gray-700 rounded-lg shadow-inner">
-      <h2 class="text-xl font-semibold mb-2 text-gray-700 dark:text-gray-200">Пояснения ошибок:</h2>
-      <ul class="list-disc list-inside text-gray-600 dark:text-gray-300">
-        <li>Ошибка 1: Неверное окончание в слове "пример".</li>
-        <li>Ошибка 2: Пропущена запятая в сложносочинённом предложении.</li>
-        <!-- TODO: dynamic -->
-      </ul>
+      <div class="w-full max-w-4xl">
+        <h2 class="text-lg font-semibold mb-2">Пояснения ошибок:</h2>
+        <ul class="list-disc list-inside text-sm">
+          <li>Ошибка 1: Неверное окончание в слове "пример".</li>
+          <li>Ошибка 2: Пропущена запятая в сложносочинённом предложении.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
-
 
 <script setup>
 import TextInput from './components/TextInput.vue'
