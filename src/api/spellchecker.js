@@ -1,3 +1,28 @@
+import { defineStore } from 'pinia'
+
+export const useSpellcheckStore = defineStore('spellcheck', {
+  state: () => ({
+    text: '',
+    language: 'ru',
+    correctedText: '',
+    explanations: [],
+  }),
+  actions: {
+    setText(newText) {
+      this.text = newText
+    },
+    setLanguage(newLang) {
+      this.language = newLang
+    },
+    setCorrectedText(newText) {
+      this.correctedText = newText
+    },
+    setExplanations(errors) {
+      this.explanations = errors
+    },
+  },
+})
+
 export const checkSpelling = async (text, language) => {
   try {
     const response = await fetch('http://localhost:5000/api/grammar/spellcheck', {

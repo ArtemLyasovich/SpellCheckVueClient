@@ -1,7 +1,7 @@
 <template>
   <div>
     <select
-      v-model="selectedLanguage"
+      v-model="store.language"
       class="border-2 focus:outline-none focus:ring-4 transition duration-200"
     >
       <option value="ru">Русский</option>
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useSpellcheckStore } from './../api/spellchecker.js'
 
-const selectedLanguage = ref('ru')
+const store = useSpellcheckStore()
 </script>

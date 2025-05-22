@@ -13,21 +13,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { checkSpelling, checkGrammar } from './../api/spellchecker.js'
+import { checkSpelling, checkGrammar, useSpellcheckStore } from './../api/spellchecker.js'
+
+const store = useSpellcheckStore()
 
 const handleClick = async () => {
-  console.log('Кнопка нажата')
-  console.log('Текст перед отправкой:', text.value)
   try {
-    const spellingResult = await checkSpelling(text.value, selectedLanguage.value)
-    console.log('Spelling result:', spellingResult)
+    console.log('Отправка запроса на проверку орфографии...')
+    const spellingResult = await checkSpelling(store.text, store.language)
+    console.log('Ответ от spellcheck:', spellingResult)
 
-    const grammarResult = await checkGrammar(text.value, selectedLanguage.value)
-    console.log('Grammar result:', grammarResult)
+    console.log('Отправка запроса на проверку грамматики...')
+    const grammarResult = await checkGrammar(store.text, store.language)
+    console.log('Ответ от grammarcheck:', grammarResult)
+
+    const spellingErrors = (spellingResult.errors || []).map(err => ({
+      type: 'spelling',
+      error: err.word,
+      message: 'Орфографическая ошибка',
+      suggestions: err.suggestions || []
+    }))
+
+    const grammarErrors = (grammarResult.errors || []).map(err => ({
+      type: 'grammar',
+      error: err.sentence,
+      message: err.message,
+      suggestions: []
+    }))
+
+    store.setExplanations([...spellingErrors, ...grammarErrors])
 
   } catch (error) {
-    console.error('Error during text check:', error)
+    console.error('Ошибка при проверке текста:', error)
   }
 }
 </script>

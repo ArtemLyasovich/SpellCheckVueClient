@@ -27,8 +27,20 @@
       <div class="w-full max-w-4xl">
         <h2 class="text-lg font-semibold mb-2">Пояснения ошибок:</h2>
         <ul class="list-disc list-inside text-sm">
-          <li>Ошибка 1: Неверное окончание в слове "пример".</li>
-          <li>Ошибка 2: Пропущена запятая в сложносочинённом предложении.</li>
+          <li v-for="(error, index) in store.explanations" :key="index">
+            <template v-if="error.type === 'spelling'">
+              Ошибка: {{ error.error }} — {{ error.message }}. 
+              <span v-if="error.suggestions.length">
+                Предложения: {{ error.suggestions.join(', ') }}
+              </span>
+            </template>
+            <template v-else-if="error.type === 'grammar'">
+              Ошибка в предложении "{{ error.error }}": {{ error.message }}
+            </template>
+            <template v-else>
+              {{ error.message }}
+            </template>
+          </li>
         </ul>
       </div>
     </div>
@@ -40,4 +52,7 @@ import TextInput from './components/TextInput.vue'
 import ResultDisplay from './components/ResultDisplay.vue'
 import LanguageSelector from './components/LanguageSelector.vue'
 import SubmitButton from './components/SubmitButton.vue'
+import { useSpellcheckStore } from './api/spellchecker.js'
+
+const store = useSpellcheckStore()
 </script>
